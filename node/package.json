@@ -1,0 +1,17 @@
+{
+  "name": "comments",
+  "version": "0.0.1",
+  "description": "comments in realtime",
+  "main": "server.js",
+  "dependencies": {
+    "querystring": "^0.2.0",
+    "socket.io": "^1.5.0",
+    "supervisor": "^0.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DerianCO",
+  "license": "ISC"
+}

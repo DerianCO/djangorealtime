@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% block js %}
+	<script type="text/javascript">
+		socket.on('show comment', function(data){
+			data = eval('('+data+')');
+			$('#comments').html( $('#comments').html() + '<tr id="'+data.id+'"><td>'+data.author+' </td> <td>'+data.comment+'</td></tr>');
+		});
+
+    $(document).ready(function(){
+			$('#new_comment').bind('submit', function(e){
+				e.preventDefault();
+				var info = {};
+				info.author = this.id_author.value;
+				info.comment = this.id_comment.value;
+				socket.emit('new comment', info);
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+  <table>
+    <thead>
+      <tr>
+        <td>author</td>
+        <td>comment</td>
+      </tr>
+    </thead>
+    <tbody id="comments">
+      {% if comments %}
+        {% for comment in comments %}
+            <tr id="{{comment.id}}">
+              <td>
+                {{comment.author}}
+              </td>
+              <td>
+                {{comment.comment}}
+              </td>
+            </tr>
+        {% endfor %}
+      {% else %}
+        <h2>Not Comments</h2>
+      {% endif %}
+    </tbody>
+  </table>
+  <form id="new_comment">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
